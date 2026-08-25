@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Proposta extends Model
 {
+    protected $fillable = ['cliente_id', 'titulo', 'desconto'];
+    
     // Uma proposta pertence a UM cliente
     public function cliente()
     {
