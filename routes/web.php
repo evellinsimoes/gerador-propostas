@@ -10,3 +10,4 @@ Route::get('/', function () {
 
 Route::resource('clientes', ClienteController::class);
 Route::resource('propostas', PropostaController::class);
+Route::get('propostas/{proposta}/pdf', [PropostaController::class, 'gerarPdf'])->name('propostas.pdf');

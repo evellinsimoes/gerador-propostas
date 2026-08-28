@@ -20,6 +20,8 @@
                 <strong>{{ $proposta->titulo }}</strong>
                 — Cliente: {{ $proposta->cliente->nome }}
                 — {{ $proposta->itens->count() }} item(ns)
+
+            <a href="{{ route('propostas.pdf', $proposta->id) }}">📄 PDF</a>
             </li>
         @endforeach
     </ul>

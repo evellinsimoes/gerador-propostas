@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Proposta;
 use App\Models\Cliente;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class PropostaController extends Controller
 {
@@ -52,6 +53,24 @@ class PropostaController extends Controller
         foreach ($request->itens as $item) {
             $proposta->itens()->create($item);
         }
+    }
+
+    
+    public function gerarPdf(Proposta $proposta)
+    {
+        // carrega o cliente e os itens junto
+        $proposta->load('cliente', 'itens');
+
+        // calcula o total
+        $total = 0;
+        foreach ($proposta->itens as $item) {
+            $total += $item->quantidade * $item->valor_unitario;
+        }
+        $total -= $proposta->desconto ?? 0;
+
+        // gera o PDF a partir de uma view
+        $pdf = Pdf::loadView('pdf.proposta', compact('proposta', 'total'));
+        return $pdf->download('proposta-' . $proposta->id . '.pdf');
     }
 
     /**
