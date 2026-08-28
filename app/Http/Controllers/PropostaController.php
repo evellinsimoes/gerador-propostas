@@ -58,18 +58,20 @@ class PropostaController extends Controller
     
     public function gerarPdf(Proposta $proposta)
     {
-        // carrega o cliente e os itens junto
         $proposta->load('cliente', 'itens');
 
-        // calcula o total
-        $total = 0;
+        // soma o subtotal (quantidade × valor de cada item)
+        $subtotal = 0;
         foreach ($proposta->itens as $item) {
-            $total += $item->quantidade * $item->valor_unitario;
+            $subtotal += $item->quantidade * $item->valor_unitario;
         }
-        $total -= $proposta->desconto ?? 0;
 
-        // gera o PDF a partir de uma view
-        $pdf = Pdf::loadView('pdf.proposta', compact('proposta', 'total'));
+        // calcula o desconto em % e o total final
+        $valorDesconto = $subtotal * (($proposta->desconto ?? 0) / 100);
+        $total = $subtotal - $valorDesconto;
+
+        // gera o PDF passando os 4 valores
+        $pdf = Pdf::loadView('pdf.proposta', compact('proposta', 'subtotal', 'valorDesconto', 'total'));
         return $pdf->download('proposta-' . $proposta->id . '.pdf');
     }
 

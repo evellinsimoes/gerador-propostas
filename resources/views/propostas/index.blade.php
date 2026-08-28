@@ -1,29 +1,29 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <title>Propostas</title>
-</head>
-<body>
+@extends('layouts.app')
+
+@section('titulo', 'Propostas')
+
+@section('conteudo')
     <h1>Propostas</h1>
 
-    <a href="{{ route('propostas.create') }}">+ Nova Proposta</a>
+    <a href="{{ route('propostas.create') }}" class="btn">+ Nova Proposta</a>
 
-    {{-- mensagem de sucesso, se houver --}}
     @if (session('sucesso'))
-        <p style="color: green;">{{ session('sucesso') }}</p>
+        <div class="sucesso">{{ session('sucesso') }}</div>
     @endif
 
-    <ul>
-        @foreach ($propostas as $proposta)
-            <li>
-                <strong>{{ $proposta->titulo }}</strong>
-                — Cliente: {{ $proposta->cliente->nome }}
-                — {{ $proposta->itens->count() }} item(ns)
-
-            <a href="{{ route('propostas.pdf', $proposta->id) }}">📄 PDF</a>
-            </li>
-        @endforeach
-    </ul>
-</body>
-</html>
+    <table>
+        <thead>
+            <tr><th>Título</th><th>Cliente</th><th>Itens</th><th>PDF</th></tr>
+        </thead>
+        <tbody>
+            @foreach ($propostas as $proposta)
+                <tr>
+                    <td>{{ $proposta->titulo }}</td>
+                    <td>{{ $proposta->cliente->nome }}</td>
+                    <td>{{ $proposta->itens->count() }}</td>
+                    <td><a href="{{ route('propostas.pdf', $proposta->id) }}">📄 Baixar</a></td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
+@endsection

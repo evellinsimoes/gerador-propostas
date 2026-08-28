@@ -1,40 +1,30 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <title>Nova Proposta</title>
-</head>
-<body>
+@extends('layouts.app')
+
+@section('titulo', 'Nova Proposta')
+
+@section('conteudo')
     <h1>Criar Proposta</h1>
 
     <form action="{{ route('propostas.store') }}" method="POST">
         @csrf
 
-        {{-- Escolher o cliente (menu suspenso) --}}
-        <div>
-            <label>Cliente:</label>
-            <select name="cliente_id" required>
-                <option value="">Selecione...</option>
-                @foreach ($clientes as $cliente)
-                    <option value="{{ $cliente->id }}">{{ $cliente->nome }}</option>
-                @endforeach
-            </select>
-        </div>
+        <label>Cliente:</label>
+        <select name="cliente_id" required>
+            <option value="">Selecione...</option>
+            @foreach ($clientes as $cliente)
+                <option value="{{ $cliente->id }}">{{ $cliente->nome }}</option>
+            @endforeach
+        </select>
 
-        <div>
-            <label>Título:</label>
-            <input type="text" name="titulo" required>
-        </div>
+        <label>Título:</label>
+        <input type="text" name="titulo" required>
 
-        <div>
-            <label>Desconto (R$):</label>
-            <input type="number" step="0.01" name="desconto">
-        </div>
+        <label>Desconto (%):</label>
+        <input type="number" step="0.01" name="desconto" min="0" max="100">
 
-        <hr>
+        <hr style="margin: 20px 0;">
         <h3>Itens</h3>
 
-        {{-- Onde os itens vão aparecer --}}
         <div id="itens">
             <div class="item">
                 <input type="text" name="itens[0][descricao]" placeholder="Descrição" required>
@@ -43,12 +33,12 @@
             </div>
         </div>
 
-        <button type="button" onclick="adicionarItem()">+ Adicionar item</button>
+        <br>
+        <button type="button" class="btn" onclick="adicionarItem()">+ Adicionar item</button>
         <br><br>
-        <button type="submit">Salvar Proposta</button>
+        <button type="submit" class="btn">Salvar Proposta</button>
     </form>
 
-    {{-- JavaScript que adiciona novos itens --}}
     <script>
         let contador = 1;
         function adicionarItem() {
@@ -63,5 +53,4 @@
             contador++;
         }
     </script>
-</body>
-</html>
+@endsection

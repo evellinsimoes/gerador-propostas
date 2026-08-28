@@ -46,15 +46,22 @@
         </tbody>
     </table>
 
-    @if ($proposta->desconto)
-        <p style="text-align: right; margin-top: 15px;">
-            Desconto: R$ {{ number_format($proposta->desconto, 2, ',', '.') }}
-        </p>
+        @if ($proposta->desconto)
+        <table style="width: 300px; margin-left: auto; margin-top: 20px;">
+            <tr>
+                <td style="border: none;">Subtotal:</td>
+                <td style="border: none; text-align: right;">R$ {{ number_format($subtotal, 2, ',', '.') }}</td>
+            </tr>
+            <tr>
+                <td style="border: none;">Desconto ({{ number_format($proposta->desconto, 1, ',', '.') }}%):</td>
+                <td style="border: none; text-align: right;">- R$ {{ number_format($valorDesconto, 2, ',', '.') }}</td>
+            </tr>
+            <tr>
+                <td style="border: none; font-weight: bold; font-size: 16px;">Total:</td>
+                <td style="border: none; text-align: right; font-weight: bold; font-size: 16px;">R$ {{ number_format($total, 2, ',', '.') }}</td>
+            </tr>
+        </table>
     @endif
-
-    <div class="total">
-        Total: R$ {{ number_format($total, 2, ',', '.') }}
-    </div>
 
     <div class="rodape">
         Proposta gerada automaticamente • {{ now()->format('d/m/Y H:i') }}
