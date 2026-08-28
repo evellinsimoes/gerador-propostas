@@ -83,11 +83,36 @@
         .item { display: flex; gap: 10px; margin-top: 10px; }
         .item input { margin-top: 0; }
         hr { border: none; border-top: 1px solid #e4e7eb; margin: 24px 0; }
+                .btn-tema {
+            position: fixed; top: 20px; right: 20px;
+            background: #fff; border: 1px solid #d3d9e0;
+            width: 42px; height: 42px; border-radius: 50%;
+            cursor: pointer; font-size: 18px; z-index: 10;
+        }
+        body.escuro { background: #1a1d23; color: #e4e7eb; }
+        body.escuro .container { background: #252a33; border-top-color: #4a90d9; }
+        body.escuro h1, body.escuro h3 { color: #6ab0f3; border-bottom-color: #3a3f4a; }
+        body.escuro label { color: #a0a8b3; }
+        body.escuro input, body.escuro select { background: #1a1d23; border-color: #3a3f4a; color: #e4e7eb; }
+        body.escuro th { background: #1a1d23; color: #a0a8b3; }
+        body.escuro td { border-bottom-color: #3a3f4a; }
+        body.escuro tr:hover td { background: #2d323c; }
+        body.escuro hr { border-top-color: #3a3f4a; }
+        body.escuro .btn-tema { background: #252a33; border-color: #3a3f4a; }
+        body.escuro a { color: #6ab0f3; }
     </style>
 </head>
 <body>
     <div class="container">
+        <button id="btn-tema" onclick="alternarTema()" class="btn-tema" title="Alternar tema">🌙</button>
         @yield('conteudo')
     </div>
+     <script>
+        function alternarTema() {
+            document.body.classList.toggle('escuro');
+            const escuro = document.body.classList.contains('escuro');
+            document.getElementById('btn-tema').textContent = escuro ? '☀️' : '🌙';
+        }
+    </script>
 </body>
 </html>
