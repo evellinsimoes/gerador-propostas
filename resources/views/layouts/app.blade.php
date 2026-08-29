@@ -128,7 +128,7 @@
 </head>
 <body>
     <div class="container">
-        <button id="btn-tema" onclick="alternarTema()" class="btn-tema" title="Alternar tema">🌙</button>
+        <button id="btn-tema" onclick="alternarTema()" class="btn-tema" title="Alternar tema"><i class="bi bi-moon"></i></button>
 
         <nav class="menu">
             <a href="{{ route('propostas.index') }}">Propostas</a>
@@ -138,16 +138,16 @@
         @yield('conteudo')
     </div>
 
-    <script>
+        <script>
         if (localStorage.getItem('tema') === 'escuro') {
             document.body.classList.add('escuro');
-            document.getElementById('btn-tema').textContent = '☀️';
+            document.getElementById('btn-tema').innerHTML = '<i class="bi bi-sun"></i>';
         }
 
         function alternarTema() {
             document.body.classList.toggle('escuro');
             const escuro = document.body.classList.contains('escuro');
-            document.getElementById('btn-tema').textContent = escuro ? '☀️' : '🌙';
+            document.getElementById('btn-tema').innerHTML = escuro ? '<i class="bi bi-sun"></i>' : '<i class="bi bi-moon"></i>';
             localStorage.setItem('tema', escuro ? 'escuro' : 'claro');
         }
 
