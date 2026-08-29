@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
     <title>@yield('titulo', 'Gerador de Propostas')</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -126,10 +127,16 @@
     </div>
 
     <script>
+        if (localStorage.getItem('tema') === 'escuro') {
+            document.body.classList.add('escuro');
+            document.getElementById('btn-tema').textContent = '☀️';
+        }
+
         function alternarTema() {
             document.body.classList.toggle('escuro');
             const escuro = document.body.classList.contains('escuro');
             document.getElementById('btn-tema').textContent = escuro ? '☀️' : '🌙';
+            localStorage.setItem('tema', escuro ? 'escuro' : 'claro');
         }
     </script>
 </body>

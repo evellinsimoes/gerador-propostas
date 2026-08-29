@@ -6,6 +6,10 @@
     <h1>Clientes Cadastrados</h1>
 
     <a href="{{ route('clientes.create') }}" class="btn">+ Novo Cliente</a>
+    
+    @if (session('sucesso'))
+        <div class="sucesso">{{ session('sucesso') }}</div>
+    @endif
 
     <table>
         <thead>

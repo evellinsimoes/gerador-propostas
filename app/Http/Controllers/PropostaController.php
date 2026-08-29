@@ -30,7 +30,7 @@ class PropostaController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-        public function store(Request $request)
+    public function store(Request $request)
     {
         // 1. valida os dados
         $request->validate([
@@ -60,21 +60,35 @@ class PropostaController extends Controller
     
     public function gerarPdf(Proposta $proposta)
     {
+        $dados = $this->calcularValores($proposta);
+        $pdf = Pdf::loadView('pdf.proposta', $dados);
+        return $pdf->download('proposta-' . $proposta->id . '.pdf');
+    }
+
+    public function visualizarPdf(Proposta $proposta)
+    {
+        $dados = $this->calcularValores($proposta);
+        $pdf = Pdf::loadView('pdf.proposta', $dados);
+        return $pdf->stream('proposta-' . $proposta->id . '.pdf');
+    }
+    
+    private function calcularValores(Proposta $proposta)
+    {
         $proposta->load('cliente', 'itens');
 
-        // soma o subtotal (quantidade × valor de cada item)
         $subtotal = 0;
         foreach ($proposta->itens as $item) {
             $subtotal += $item->quantidade * $item->valor_unitario;
         }
-
-        // calcula o desconto em % e o total final
         $valorDesconto = $subtotal * (($proposta->desconto ?? 0) / 100);
         $total = $subtotal - $valorDesconto;
 
-        // gera o PDF passando os 4 valores
-        $pdf = Pdf::loadView('pdf.proposta', compact('proposta', 'subtotal', 'valorDesconto', 'total'));
-        return $pdf->download('proposta-' . $proposta->id . '.pdf');
+        return [
+            'proposta' => $proposta,
+            'subtotal' => $subtotal,
+            'valorDesconto' => $valorDesconto,
+            'total' => $total,
+        ];
     }
 
     /**

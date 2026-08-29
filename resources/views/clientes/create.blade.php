@@ -1,32 +1,23 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <title>Novo Cliente</title>
-</head>
-<body>
+@extends('layouts.app')
+
+@section('titulo', 'Novo Cliente')
+
+@section('conteudo')
     <h1>Cadastrar Cliente</h1>
 
-    {{-- O form envia os dados para a rota clientes.store --}}
     <form action="{{ route('clientes.store') }}" method="POST">
-        @csrf {{-- proteção de segurança obrigatória no Laravel --}}
+        @csrf
 
-        <div>
-            <label>Nome:</label>
-            <input type="text" name="nome" required>
-        </div>
+        <label>Nome:</label>
+        <input type="text" name="nome" required>
 
-        <div>
-            <label>E-mail:</label>
-            <input type="email" name="email">
-        </div>
+        <label>E-mail:</label>
+        <input type="email" name="email">
 
-        <div>
-            <label>Telefone:</label>
-            <input type="text" name="telefone">
-        </div>
+        <label>Telefone:</label>
+        <input type="text" name="telefone">
 
-        <button type="submit">Salvar</button>
+        <br><br>
+        <button type="submit" class="btn">Salvar</button>
     </form>
-</body>
-</html>
+@endsection
