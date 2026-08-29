@@ -23,6 +23,15 @@
             overflow: hidden;
             padding: 0 32px 32px;
         }
+        .menu {
+            margin: 0 -32px 24px;
+            padding: 14px 32px;
+            background: #f4f6f9;
+            border-bottom: 1px solid #e4e7eb;
+            display: flex;
+            gap: 24px;
+        }
+        .menu a { font-weight: 600; font-size: 14px; color: #0c447c; }
         h1 {
             color: #0c447c;
             font-size: 24px;
@@ -83,7 +92,7 @@
         .item { display: flex; gap: 10px; margin-top: 10px; }
         .item input { margin-top: 0; }
         hr { border: none; border-top: 1px solid #e4e7eb; margin: 24px 0; }
-                .btn-tema {
+        .btn-tema {
             position: fixed; top: 20px; right: 20px;
             background: #fff; border: 1px solid #d3d9e0;
             width: 42px; height: 42px; border-radius: 50%;
@@ -92,6 +101,8 @@
         body.escuro { background: #1a1d23; color: #e4e7eb; }
         body.escuro .container { background: #252a33; border-top-color: #4a90d9; }
         body.escuro h1, body.escuro h3 { color: #6ab0f3; border-bottom-color: #3a3f4a; }
+        body.escuro .menu { background: #1a1d23; border-bottom-color: #3a3f4a; }
+        body.escuro .menu a { color: #6ab0f3; }
         body.escuro label { color: #a0a8b3; }
         body.escuro input, body.escuro select { background: #1a1d23; border-color: #3a3f4a; color: #e4e7eb; }
         body.escuro th { background: #1a1d23; color: #a0a8b3; }
@@ -105,9 +116,16 @@
 <body>
     <div class="container">
         <button id="btn-tema" onclick="alternarTema()" class="btn-tema" title="Alternar tema">🌙</button>
+
+        <nav class="menu">
+            <a href="{{ route('propostas.index') }}">Propostas</a>
+            <a href="{{ route('clientes.index') }}">Clientes</a>
+        </nav>
+
         @yield('conteudo')
     </div>
-     <script>
+
+    <script>
         function alternarTema() {
             document.body.classList.toggle('escuro');
             const escuro = document.body.classList.contains('escuro');
