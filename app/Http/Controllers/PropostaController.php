@@ -30,7 +30,7 @@ class PropostaController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+        public function store(Request $request)
     {
         // 1. valida os dados
         $request->validate([
@@ -53,8 +53,10 @@ class PropostaController extends Controller
         foreach ($request->itens as $item) {
             $proposta->itens()->create($item);
         }
-    }
 
+        // 4. redireciona com mensagem de sucesso
+        return redirect()->route('propostas.index')->with('sucesso', 'Proposta criada com sucesso!');
+    }
     
     public function gerarPdf(Proposta $proposta)
     {
