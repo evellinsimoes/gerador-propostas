@@ -122,6 +122,8 @@
         body.escuro .btn-tema { background: #252a33; border-color: #3a3f4a; }
         body.escuro a { color: #6ab0f3; }
         body.escuro .aviso { background: #2e2a1a; color: #e0c56b; }
+        body.escuro .modal-box { background: #252a33 !important; }
+        body.escuro .modal-texto { color: #e4e7eb !important; }
     </style>
 </head>
 <body>
@@ -148,6 +150,27 @@
             document.getElementById('btn-tema').textContent = escuro ? '☀️' : '🌙';
             localStorage.setItem('tema', escuro ? 'escuro' : 'claro');
         }
+
+        let formParaExcluir = null;
+
+        function abrirModal(form) {
+            formParaExcluir = form;
+            document.getElementById('modal-excluir').style.display = 'flex';
+        }
+        function fecharModal() {
+            document.getElementById('modal-excluir').style.display = 'none';
+            formParaExcluir = null;
+        }
+        function confirmarExclusao() {
+            if (formParaExcluir) formParaExcluir.submit();
+        }
     </script>
+        <div id="modal-excluir" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:100; align-items:center; justify-content:center;">
+        <div style="background:#fff; padding:28px; border-radius:8px; max-width:380px; text-align:center;" class="modal-box">
+            <p style="font-size:16px; margin-bottom:20px; color:#2c3e50;" class="modal-texto">Tem certeza que deseja excluir?</p>
+            <button onclick="fecharModal()" class="btn" style="background:#888;">Cancelar</button>
+            <button onclick="confirmarExclusao()" class="btn" style="background:#c0392b;">Excluir</button>
+        </div>
+    </div>
 </body>
 </html>
