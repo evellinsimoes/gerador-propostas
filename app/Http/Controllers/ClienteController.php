@@ -51,9 +51,9 @@ class ClienteController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Cliente $cliente)
     {
-        //
+        return view('clientes.edit', compact('cliente'));
     }
 
     /**
@@ -61,7 +61,16 @@ class ClienteController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'nome' => 'required',
+            'email' => 'nullable|email',
+            'telefone' => 'nullable',
+        ]);
+
+        $cliente = Cliente::findOrFail($id);
+        $cliente->update($request->all());
+
+        return redirect()->route('clientes.index')->with('sucesso', 'Cliente atualizado com sucesso!');
     }
 
     /**
@@ -69,6 +78,14 @@ class ClienteController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $cliente = Cliente::findOrFail($id);
+
+        if ($cliente->propostas()->count() > 0) {
+            return redirect()->route('clientes.index')->with('sucesso', 'Não é possível excluir: este cliente tem propostas cadastradas.');
+        }
+
+        $cliente->delete();
+
+        return redirect()->route('clientes.index')->with('sucesso', 'Cliente excluído com sucesso!');
     }
 }
