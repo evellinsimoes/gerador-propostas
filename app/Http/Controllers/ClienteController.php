@@ -81,7 +81,7 @@ class ClienteController extends Controller
         $cliente = Cliente::findOrFail($id);
 
         if ($cliente->propostas()->count() > 0) {
-            return redirect()->route('clientes.index')->with('sucesso', 'Não é possível excluir: este cliente tem propostas cadastradas.');
+            return redirect()->route('clientes.index')->with('aviso', 'Não é possível excluir: este cliente tem propostas cadastradas.');
         }
 
         $cliente->delete();

@@ -90,6 +90,15 @@
             margin: 18px 0;
             font-size: 14px;
         }
+        .aviso {
+            background: #fff8e1;
+            color: #8a6d00;
+            padding: 13px 16px;
+            border-radius: 4px;
+            border-left: 4px solid #f0ad4e;
+            margin: 18px 0;
+            font-size: 14px;
+        }
         .item { display: flex; gap: 10px; margin-top: 10px; }
         .item input { margin-top: 0; }
         hr { border: none; border-top: 1px solid #e4e7eb; margin: 24px 0; }
@@ -112,6 +121,7 @@
         body.escuro hr { border-top-color: #3a3f4a; }
         body.escuro .btn-tema { background: #252a33; border-color: #3a3f4a; }
         body.escuro a { color: #6ab0f3; }
+        body.escuro .aviso { background: #2e2a1a; color: #e0c56b; }
     </style>
 </head>
 <body>

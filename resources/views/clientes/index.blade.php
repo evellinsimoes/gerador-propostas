@@ -11,6 +11,10 @@
         <div class="sucesso">{{ session('sucesso') }}</div>
     @endif
 
+    @if (session('aviso'))
+        <div class="aviso">{{ session('aviso') }}</div>
+    @endif
+
     <table>
         <thead>
             <tr><th>Nome</th><th>E-mail</th><th>Telefone</th><th>Ações</th></tr>
