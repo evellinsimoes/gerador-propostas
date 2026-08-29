@@ -102,24 +102,50 @@ class PropostaController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Proposta $proposta)
     {
-        //
+        $proposta->load('itens');
+        $clientes = Cliente::all();
+        return view('propostas.edit', compact('proposta', 'clientes'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Proposta $proposta)
     {
-        //
+        $request->validate([
+            'cliente_id' => 'required|exists:clientes,id',
+            'titulo' => 'required',
+            'itens' => 'required|array|min:1',
+            'itens.*.descricao' => 'required',
+            'itens.*.quantidade' => 'required|integer|min:1',
+            'itens.*.valor_unitario' => 'required|numeric|min:0',
+        ]);
+
+        $proposta->update([
+            'cliente_id' => $request->cliente_id,
+            'titulo' => $request->titulo,
+            'desconto' => $request->desconto,
+        ]);
+
+        // recria os itens: apaga os antigos e cria os novos
+        $proposta->itens()->delete();
+        foreach ($request->itens as $item) {
+            $proposta->itens()->create($item);
+        }
+
+        return redirect()->route('propostas.index')->with('sucesso', 'Proposta atualizada com sucesso!');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Proposta $proposta)
     {
-        //
+        $proposta->itens()->delete();  // apaga os itens primeiro
+        $proposta->delete();           // depois apaga a proposta
+
+        return redirect()->route('propostas.index')->with('sucesso', 'Proposta excluída com sucesso!');
     }
 }
