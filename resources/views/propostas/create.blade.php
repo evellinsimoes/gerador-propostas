@@ -45,6 +45,10 @@
             </div>
         </div>
 
+        <br>
+        <button type="button" class="btn" onclick="adicionarItem()">+ Adicionar item</button>
+        <br>
+
         <div id="resumo" class="resumo-box">
             <div style="display:flex; justify-content:space-between;">
                 <span>Subtotal:</span> <span id="r-subtotal">R$ 0,00</span>
@@ -58,8 +62,6 @@
             </div>
         </div>
 
-        <br>
-        <button type="button" class="btn" onclick="adicionarItem()">+ Adicionar item</button>
         <br><br>
         <button type="submit" class="btn">Salvar Proposta</button>
     </form>

@@ -156,9 +156,11 @@
         }
 
         .resumo-box {
-            margin-top: 20px; padding: 16px;
-            background: #f4f6f9; border-radius: 6px;
-            max-width: 300px; margin-left: auto;
+            margin-top: 24px;
+            padding: 16px 20px;
+            background: #f4f6f9;
+            border-radius: 6px;
+            border-left: 4px solid #0c447c;
         }
         body.escuro .resumo-box { background: #1a1d23; }
     </style>

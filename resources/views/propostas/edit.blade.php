@@ -31,7 +31,7 @@
         </select>
 
         <label>Título:</label>
-        <input type="text" name="titulo" value="{{ $proposta->titulo }}" required>
+        <input type="text" name="titulo" value="{{ old('titulo', $proposta->titulo) }}" required>
 
         <label>Desconto (%):</label>
         <input type="text" name="desconto" value="{{ old('desconto', $proposta->desconto) }}">
@@ -52,6 +52,21 @@
 
         <br>
         <button type="button" class="btn" onclick="adicionarItem()">+ Adicionar item</button>
+        <br>
+        
+        <div id="resumo" class="resumo-box">
+            <div style="display:flex; justify-content:space-between;">
+                <span>Subtotal:</span> <span id="r-subtotal">R$ 0,00</span>
+            </div>
+            <div style="display:flex; justify-content:space-between;" id="linha-desconto">
+                <span>Desconto:</span> <span id="r-desconto">R$ 0,00</span>
+            </div>
+            <hr style="margin: 8px 0;">
+            <div style="display:flex; justify-content:space-between; font-weight:bold; font-size:16px;">
+                <span>Total:</span> <span id="r-total">R$ 0,00</span>
+            </div>
+        </div>
+
         <br><br>
         <button type="submit" class="btn">Salvar Alterações</button>
     </form>
@@ -79,5 +94,26 @@
                 mostrarAviso('A proposta precisa ter pelo menos um item.');
             }
         }
+        function calcularTotal() {
+            let subtotal = 0;
+            document.querySelectorAll('#itens .item').forEach(item => {
+                const qtd = parseFloat(item.querySelector('[name*="[quantidade]"]').value) || 0;
+                const valor = parseFloat(item.querySelector('[name*="[valor_unitario]"]').value) || 0;
+                subtotal += qtd * valor;
+            });
+
+            const descPercent = parseFloat(document.querySelector('[name="desconto"]').value) || 0;
+            const valorDesconto = subtotal * (descPercent / 100);
+            const total = subtotal - valorDesconto;
+
+            const fmt = (n) => 'R$ ' + n.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+
+            document.getElementById('r-subtotal').textContent = fmt(subtotal);
+            document.getElementById('r-desconto').textContent = '- ' + fmt(valorDesconto);
+            document.getElementById('r-total').textContent = fmt(total);
+        }
+
+        document.addEventListener('input', calcularTotal);
+        calcularTotal();
     </script>
 @endsection
