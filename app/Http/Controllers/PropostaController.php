@@ -9,55 +9,68 @@ use Barryvdh\DomPDF\Facade\Pdf;
 
 class PropostaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    // Regras de validação (usadas no store e no update)
+    private function regras()
+    {
+        return [
+            'cliente_id' => 'required|exists:clientes,id',
+            'titulo' => 'required',
+            'desconto' => 'nullable|numeric|min:0|max:100',
+            'itens' => 'required|array|min:1',
+            'itens.*.descricao' => 'required',
+            'itens.*.quantidade' => 'required|integer|min:1',
+            'itens.*.valor_unitario' => 'required|numeric|min:0',
+        ];
+    }
+
+    // Mensagens de erro em português (usadas no store e no update)
+    private function mensagens()
+    {
+        return [
+            'cliente_id.required' => 'Selecione um cliente.',
+            'titulo.required' => 'O título é obrigatório.',
+            'desconto.max' => 'O desconto não pode ser maior que 100%.',
+            'desconto.min' => 'O desconto não pode ser negativo.',
+            'desconto.numeric' => 'O desconto deve ser um número.',
+            'itens.required' => 'Adicione pelo menos um item.',
+            'itens.min' => 'Adicione pelo menos um item.',
+            'itens.*.descricao.required' => 'A descrição do item é obrigatória.',
+            'itens.*.quantidade.required' => 'A quantidade é obrigatória.',
+            'itens.*.quantidade.min' => 'A quantidade deve ser no mínimo 1.',
+            'itens.*.valor_unitario.required' => 'O valor unitário é obrigatório.',
+            'itens.*.valor_unitario.min' => 'O valor não pode ser negativo.',
+        ];
+    }
+
     public function index()
     {
         $propostas = Proposta::all();
         return view('propostas.index', compact('propostas'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         $clientes = Cliente::all();
         return view('propostas.create', compact('clientes'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        // 1. valida os dados
-        $request->validate([
-            'cliente_id' => 'required|exists:clientes,id',
-            'titulo' => 'required',
-            'itens' => 'required|array|min:1',
-            'itens.*.descricao' => 'required',
-            'itens.*.quantidade' => 'required|integer|min:1',
-            'itens.*.valor_unitario' => 'required|numeric|min:0',
-        ]);
+        $request->validate($this->regras(), $this->mensagens());
 
-        // 2. cria a proposta
         $proposta = Proposta::create([
             'cliente_id' => $request->cliente_id,
             'titulo' => $request->titulo,
             'desconto' => $request->desconto,
         ]);
 
-        // 3. cria cada item ligado a essa proposta
         foreach ($request->itens as $item) {
             $proposta->itens()->create($item);
         }
 
-        // 4. redireciona com mensagem de sucesso
         return redirect()->route('propostas.index')->with('sucesso', 'Proposta criada com sucesso!');
     }
-    
+
     public function gerarPdf(Proposta $proposta)
     {
         $dados = $this->calcularValores($proposta);
@@ -71,7 +84,7 @@ class PropostaController extends Controller
         $pdf = Pdf::loadView('pdf.proposta', $dados);
         return $pdf->stream('proposta-' . $proposta->id . '.pdf');
     }
-    
+
     private function calcularValores(Proposta $proposta)
     {
         $proposta->load('cliente', 'itens');
@@ -91,17 +104,11 @@ class PropostaController extends Controller
         ];
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Proposta $proposta)
     {
         $proposta->load('itens');
@@ -109,19 +116,9 @@ class PropostaController extends Controller
         return view('propostas.edit', compact('proposta', 'clientes'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Proposta $proposta)
     {
-        $request->validate([
-            'cliente_id' => 'required|exists:clientes,id',
-            'titulo' => 'required',
-            'itens' => 'required|array|min:1',
-            'itens.*.descricao' => 'required',
-            'itens.*.quantidade' => 'required|integer|min:1',
-            'itens.*.valor_unitario' => 'required|numeric|min:0',
-        ]);
+        $request->validate($this->regras(), $this->mensagens());
 
         $proposta->update([
             'cliente_id' => $request->cliente_id,
@@ -129,7 +126,6 @@ class PropostaController extends Controller
             'desconto' => $request->desconto,
         ]);
 
-        // recria os itens: apaga os antigos e cria os novos
         $proposta->itens()->delete();
         foreach ($request->itens as $item) {
             $proposta->itens()->create($item);
@@ -138,13 +134,10 @@ class PropostaController extends Controller
         return redirect()->route('propostas.index')->with('sucesso', 'Proposta atualizada com sucesso!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Proposta $proposta)
     {
-        $proposta->itens()->delete();  // apaga os itens primeiro
-        $proposta->delete();           // depois apaga a proposta
+        $proposta->itens()->delete();
+        $proposta->delete();
 
         return redirect()->route('propostas.index')->with('sucesso', 'Proposta excluída com sucesso!');
     }

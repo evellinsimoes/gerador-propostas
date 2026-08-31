@@ -5,6 +5,17 @@
 @section('conteudo')
     <h1>Editar Proposta</h1>
 
+    @if ($errors->any())
+        <div class="aviso">
+            <strong>Corrija os seguintes erros:</strong>
+            <ul style="margin: 8px 0 0 20px;">
+                @foreach ($errors->all() as $erro)
+                    <li>{{ $erro }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <form action="{{ route('propostas.update', $proposta->id) }}" method="POST">
         @csrf
         @method('PUT')
@@ -23,7 +34,7 @@
         <input type="text" name="titulo" value="{{ $proposta->titulo }}" required>
 
         <label>Desconto (%):</label>
-        <input type="text" name="desconto" value="{{ $proposta->desconto }}">
+        <input type="text" name="desconto" value="{{ old('desconto', $proposta->desconto) }}">
 
         <hr style="margin: 20px 0;">
         <h3>Itens</h3>

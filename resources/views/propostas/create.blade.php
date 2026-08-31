@@ -5,6 +5,17 @@
 @section('conteudo')
     <h1>Criar Proposta</h1>
 
+    @if ($errors->any())
+        <div class="aviso">
+            <strong>Corrija os seguintes erros:</strong>
+            <ul style="margin: 8px 0 0 20px;">
+                @foreach ($errors->all() as $erro)
+                    <li>{{ $erro }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <form action="{{ route('propostas.store') }}" method="POST">
         @csrf
 
@@ -17,10 +28,10 @@
         </select>
 
         <label>Título:</label>
-        <input type="text" name="titulo" required>
+        <input type="text" name="titulo" value="{{ old('titulo') }}" required>
 
         <label>Desconto (%):</label>
-        <input type="number" step="0.01" name="desconto" min="0" max="100">
+        <input type="number" step="0.01" name="desconto" min="0" max="100" value="{{ old('desconto') }}">
 
         <hr style="margin: 20px 0;">
         <h3>Itens</h3>

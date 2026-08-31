@@ -7,65 +7,57 @@ use App\Models\Cliente;
 
 class ClienteController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    // Regras e mensagens (usadas no store e no update)
+    private function regras()
+    {
+        return [
+            'nome' => 'required',
+            'email' => 'nullable|email',
+            'telefone' => 'nullable',
+        ];
+    }
+
+    private function mensagens()
+    {
+        return [
+            'nome.required' => 'O nome é obrigatório.',
+            'email.email' => 'Digite um e-mail válido.',
+        ];
+    }
+
     public function index()
     {
         $clientes = Cliente::all();
         return view('clientes.index', compact('clientes'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         return view('clientes.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        $request->validate([
-            'nome' => 'required',
-            'email' => 'nullable|email',
-            'telefone' => 'nullable',
-        ]);
+        $request->validate($this->regras(), $this->mensagens());
 
         Cliente::create($request->all());
 
         return redirect()->route('clientes.index')->with('sucesso', 'Cliente cadastrado com sucesso!');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Cliente $cliente)
     {
         return view('clientes.edit', compact('cliente'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
-        $request->validate([
-            'nome' => 'required',
-            'email' => 'nullable|email',
-            'telefone' => 'nullable',
-        ]);
+        $request->validate($this->regras(), $this->mensagens());
 
         $cliente = Cliente::findOrFail($id);
         $cliente->update($request->all());
@@ -73,9 +65,6 @@ class ClienteController extends Controller
         return redirect()->route('clientes.index')->with('sucesso', 'Cliente atualizado com sucesso!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         $cliente = Cliente::findOrFail($id);
