@@ -22,7 +22,7 @@
                     <td>{{ $proposta->cliente->nome }}</td>
                     <td><strong>R$ {{ number_format($proposta->total, 2, ',', '.') }}</strong></td>
                     <td>{{ $proposta->itens_count }}</td>
-                    <td>
+                    <td style="white-space: nowrap;">
                         <a href="{{ route('propostas.visualizar', $proposta->id) }}" target="_blank"><i class="bi bi-eye"></i> Visualizar</a>
                         &nbsp;|&nbsp;
                         <a href="{{ route('propostas.pdf', $proposta->id) }}"><i class="bi bi-download"></i> Baixar</a>

@@ -25,7 +25,7 @@
                     <td>{{ $cliente->nome }}</td>
                     <td>{{ $cliente->email }}</td>
                     <td>{{ $cliente->telefone }}</td>
-                    <td>
+                    <td style="white-space: nowrap;">
                         <a href="{{ route('clientes.edit', $cliente->id) }}"><i class="bi bi-pencil"></i> Editar</a>
                         &nbsp;|&nbsp;
                         <form action="{{ route('clientes.destroy', $cliente->id) }}" method="POST" style="display:inline;" onsubmit="event.preventDefault(); abrirModal(this);">
