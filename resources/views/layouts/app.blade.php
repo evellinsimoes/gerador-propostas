@@ -154,6 +154,13 @@
             .item input { flex: 1 1 100%; }
 
         }
+
+        .resumo-box {
+            margin-top: 20px; padding: 16px;
+            background: #f4f6f9; border-radius: 6px;
+            max-width: 300px; margin-left: auto;
+        }
+        body.escuro .resumo-box { background: #1a1d23; }
     </style>
 </head>
 <body>
