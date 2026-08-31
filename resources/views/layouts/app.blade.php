@@ -58,6 +58,17 @@
             margin-top: 8px;
         }
         .btn:hover { background: #185fa5; text-decoration: none; }
+                .btn-tema {
+            margin-left: auto;
+            background: transparent;
+            border: none;
+            width: 36px; height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 18px;
+            color: #0c447c;
+        }
+        .btn-tema:hover { background: rgba(0,0,0,0.06); }
         label { display: block; margin-top: 14px; font-weight: 600; font-size: 13px; color: #5f6b7a; }
         input, select {
             width: 100%;
@@ -102,12 +113,7 @@
         .item { display: flex; gap: 10px; margin-top: 10px; }
         .item input { margin-top: 0; }
         hr { border: none; border-top: 1px solid #e4e7eb; margin: 24px 0; }
-        .btn-tema {
-            position: fixed; top: 20px; right: 20px;
-            background: #fff; border: 1px solid #d3d9e0;
-            width: 42px; height: 42px; border-radius: 50%;
-            cursor: pointer; font-size: 18px; z-index: 10;
-        }
+        
         body.escuro { background: #1a1d23; color: #e4e7eb; }
         body.escuro .container { background: #252a33; border-top-color: #4a90d9; }
         body.escuro h1, body.escuro h3 { color: #6ab0f3; border-bottom-color: #3a3f4a; }
@@ -119,24 +125,40 @@
         body.escuro td { border-bottom-color: #3a3f4a; }
         body.escuro tr:hover td { background: #2d323c; }
         body.escuro hr { border-top-color: #3a3f4a; }
-        body.escuro .btn-tema { background: #252a33; border-color: #3a3f4a; }
+        body.escuro .btn-tema { color: #6ab0f3; background: transparent; }
         body.escuro a { color: #6ab0f3; }
         body.escuro .aviso { background: #2e2a1a; color: #e0c56b; }
         body.escuro .modal-box { background: #252a33 !important; }
         body.escuro .modal-texto { color: #e4e7eb !important; }
+
+        /* Responsividade — celular e tablet */
+        @media (max-width: 768px) {
+            body { padding: 15px 10px; }
+            .container { padding: 0 16px 20px; }
+
+            h1 { padding: 20px 16px 16px; margin: 0 -16px 16px; font-size: 20px; }
+            .menu { margin: 0 -16px 16px; padding: 12px 16px; }
+
+            /* tabela vira rolável na horizontal em vez de cortar */
+            .container { overflow-x: hidden; }
+            table { display: block; overflow-x: auto; white-space: nowrap; }
+
+            /* os campos de item empilham em vez de espremer */
+            .item { flex-wrap: wrap; }
+            .item input { flex: 1 1 100%; }
+
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <button id="btn-tema" onclick="alternarTema()" class="btn-tema" title="Alternar tema"><i class="bi bi-moon"></i></button>
-
         <nav class="menu">
             <a href="{{ route('propostas.index') }}">Propostas</a>
             <a href="{{ route('clientes.index') }}">Clientes</a>
+            <button id="btn-tema" onclick="alternarTema()" class="btn-tema" title="Alternar tema"><i class="bi bi-moon"></i></button>
         </nav>
-
         @yield('conteudo')
-    </div>
+    </div>   
 
         <script>
         if (localStorage.getItem('tema') === 'escuro') {
