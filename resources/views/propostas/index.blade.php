@@ -13,14 +13,15 @@
 
     <table>
         <thead>
-            <tr><th>Título</th><th>Cliente</th><th>Itens</th><th>Ações</th></tr>
+            <tr><th>Título</th><th>Cliente</th><th>Valor</th><th>Itens</th><th>Ações</th></tr>
         </thead>
         <tbody>
             @foreach ($propostas as $proposta)
                 <tr>
                     <td>{{ $proposta->titulo }}</td>
                     <td>{{ $proposta->cliente->nome }}</td>
-                    <td>{{ $proposta->itens->count() }}</td>
+                    <td><strong>R$ {{ number_format($proposta->total, 2, ',', '.') }}</strong></td>
+                    <td>{{ $proposta->itens_count }}</td>
                     <td>
                         <a href="{{ route('propostas.visualizar', $proposta->id) }}" target="_blank"><i class="bi bi-eye"></i> Visualizar</a>
                         &nbsp;|&nbsp;

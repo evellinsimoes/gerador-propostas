@@ -19,4 +19,13 @@ class Proposta extends Model
     {
         return $this->hasMany(ItemProposta::class);
     }
+
+    // Calcula o valor total da proposta (com desconto)
+    public function getTotalAttribute()
+    {
+        $subtotal = $this->itens->sum(function ($item) {
+            return $item->quantidade * $item->valor_unitario;
+        });
+        return $subtotal - ($subtotal * (($this->desconto ?? 0) / 100));
+    }
 }

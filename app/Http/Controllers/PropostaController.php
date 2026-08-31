@@ -44,7 +44,7 @@ class PropostaController extends Controller
 
     public function index()
     {
-        $propostas = Proposta::all();
+        $propostas = Proposta::with('cliente')->withCount('itens')->latest()->get();
         return view('propostas.index', compact('propostas'));
     }
 

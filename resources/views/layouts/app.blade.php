@@ -153,8 +153,8 @@
 <body>
     <div class="container">
         <nav class="menu">
-            <a href="{{ route('propostas.index') }}">Propostas</a>
             <a href="{{ route('clientes.index') }}">Clientes</a>
+            <a href="{{ route('propostas.index') }}">Propostas</a>
             <button id="btn-tema" onclick="alternarTema()" class="btn-tema" title="Alternar tema"><i class="bi bi-moon"></i></button>
         </nav>
         @yield('conteudo')
