@@ -58,7 +58,7 @@
             margin-top: 8px;
         }
         .btn:hover { background: #185fa5; text-decoration: none; }
-                .btn-tema {
+        .btn-tema {
             margin-left: auto;
             background: transparent;
             border: none;
@@ -69,6 +69,12 @@
             color: #0c447c;
         }
         .btn-tema:hover { background: rgba(0,0,0,0.06); }
+        .btn-remover {
+            background: #c0392b; color: #fff; border: none;
+            border-radius: 4px; cursor: pointer; padding: 0 12px;
+            font-size: 16px;
+        }
+        .btn-remover:hover { background: #a93226; }
         label { display: block; margin-top: 14px; font-weight: 600; font-size: 13px; color: #5f6b7a; }
         input, select {
             width: 100%;
@@ -186,12 +192,25 @@
         function confirmarExclusao() {
             if (formParaExcluir) formParaExcluir.submit();
         }
+        function mostrarAviso(mensagem) {
+            document.getElementById('texto-aviso').textContent = mensagem;
+            document.getElementById('modal-aviso').style.display = 'flex';
+        }
+        function fecharAviso() {
+            document.getElementById('modal-aviso').style.display = 'none';
+        }
     </script>
-        <div id="modal-excluir" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:100; align-items:center; justify-content:center;">
+    <div id="modal-excluir" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:100; align-items:center; justify-content:center;">
         <div style="background:#fff; padding:28px; border-radius:8px; max-width:380px; text-align:center;" class="modal-box">
             <p style="font-size:16px; margin-bottom:20px; color:#2c3e50;" class="modal-texto">Tem certeza que deseja excluir?</p>
             <button onclick="fecharModal()" class="btn" style="background:#888;">Cancelar</button>
             <button onclick="confirmarExclusao()" class="btn" style="background:#c0392b;">Excluir</button>
+        </div>
+    </div>
+    <div id="modal-aviso" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:100; align-items:center; justify-content:center;">
+        <div style="background:#fff; padding:28px; border-radius:8px; max-width:380px; text-align:center;" class="modal-box">
+            <p style="font-size:16px; margin-bottom:20px; color:#2c3e50;" class="modal-texto" id="texto-aviso"></p>
+            <button onclick="fecharAviso()" class="btn">OK</button>
         </div>
     </div>
 </body>

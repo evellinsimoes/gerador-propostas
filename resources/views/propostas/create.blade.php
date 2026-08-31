@@ -41,6 +41,7 @@
                 <input type="text" name="itens[0][descricao]" placeholder="Descrição" required>
                 <input type="number" name="itens[0][quantidade]" placeholder="Qtd" required>
                 <input type="number" step="0.01" name="itens[0][valor_unitario]" placeholder="Valor unitário" required>
+                <button type="button" class="btn-remover" onclick="removerItem(this)"><i class="bi bi-x"></i></button>
             </div>
         </div>
 
@@ -59,9 +60,19 @@
                 <input type="text" name="itens[${contador}][descricao]" placeholder="Descrição" required>
                 <input type="number" name="itens[${contador}][quantidade]" placeholder="Qtd" required>
                 <input type="number" step="0.01" name="itens[${contador}][valor_unitario]" placeholder="Valor unitário" required>
+                <button type="button" class="btn-remover" onclick="removerItem(this)"><i class="bi bi-x"></i></button>
             `;
             document.getElementById('itens').appendChild(div);
             contador++;
+        }
+
+        function removerItem(botao) {
+            const itens = document.querySelectorAll('#itens .item');
+            if (itens.length > 1) {
+                botao.parentElement.remove();
+            } else {
+                mostrarAviso('A proposta precisa ter pelo menos um item.');
+            }
         }
     </script>
 @endsection
