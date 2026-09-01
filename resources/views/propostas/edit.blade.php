@@ -36,6 +36,20 @@
         <label>Desconto (%):</label>
         <input type="text" name="desconto" value="{{ old('desconto', $proposta->desconto) }}">
 
+        <label>Validade:</label>
+        <input type="date" name="validade" value="{{ old('validade', $proposta->validade) }}">
+
+        <label>Status:</label>
+        <select name="status">
+            <option value="rascunho" {{ $proposta->status == 'rascunho' ? 'selected' : '' }}>Rascunho</option>
+            <option value="enviada" {{ $proposta->status == 'enviada' ? 'selected' : '' }}>Enviada</option>
+            <option value="aceita" {{ $proposta->status == 'aceita' ? 'selected' : '' }}>Aceita</option>
+            <option value="recusada" {{ $proposta->status == 'recusada' ? 'selected' : '' }}>Recusada</option>
+        </select>
+
+        <label>Observações:</label>
+        <textarea name="observacoes" rows="3" style="width:100%; padding:11px; margin-top:5px; border:1px solid #d3d9e0; border-radius:4px; font-size:14px; font-family:inherit;">{{ old('observacoes', $proposta->observacoes) }}</textarea>
+
         <hr style="margin: 20px 0;">
         <h3>Itens</h3>
 

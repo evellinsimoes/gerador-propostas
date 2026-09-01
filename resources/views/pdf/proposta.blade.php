@@ -23,6 +23,11 @@
             <strong>E-mail:</strong> {{ $proposta->cliente->email }} <br>
         @endif
         <strong>Data:</strong> {{ $proposta->created_at->format('d/m/Y') }}
+                <br>
+        @if ($proposta->validade)
+            <strong>Válida até:</strong> {{ \Carbon\Carbon::parse($proposta->validade)->format('d/m/Y') }} <br>
+        @endif
+        <strong>Status:</strong> {{ ucfirst($proposta->status) }}
     </div>
 
     <table>
@@ -46,7 +51,7 @@
         </tbody>
     </table>
 
-        @if ($proposta->desconto)
+    @if ($proposta->desconto)
         <table style="width: 300px; margin-left: auto; margin-top: 20px;">
             <tr>
                 <td style="border: none;">Subtotal:</td>
@@ -61,6 +66,13 @@
                 <td style="border: none; text-align: right; font-weight: bold; font-size: 16px;">R$ {{ number_format($total, 2, ',', '.') }}</td>
             </tr>
         </table>
+    @endif
+
+    @if ($proposta->observacoes)
+        <div style="margin-top: 30px;">
+            <strong>Observações:</strong>
+            <p style="margin-top: 6px; color: #555;">{{ $proposta->observacoes }}</p>
+        </div>
     @endif
 
     <div class="rodape">

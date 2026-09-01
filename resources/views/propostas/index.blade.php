@@ -13,7 +13,7 @@
 
     <table>
         <thead>
-            <tr><th>Título</th><th>Cliente</th><th>Valor</th><th>Itens</th><th>Ações</th></tr>
+            <tr><th>Título</th><th>Cliente</th><th>Valor</th><th>Status</th><th>Itens</th><th>Ações</th></tr>
         </thead>
         <tbody>
             @foreach ($propostas as $proposta)
@@ -21,6 +21,7 @@
                     <td>{{ $proposta->titulo }}</td>
                     <td>{{ $proposta->cliente->nome }}</td>
                     <td><strong>R$ {{ number_format($proposta->total, 2, ',', '.') }}</strong></td>
+                    <td><span class="badge badge-{{ $proposta->status }}">{{ ucfirst($proposta->status) }}</span></td>
                     <td>{{ $proposta->itens_count }}</td>
                     <td style="white-space: nowrap;">
                         <a href="{{ route('propostas.visualizar', $proposta->id) }}" target="_blank"><i class="bi bi-eye"></i> Visualizar</a>

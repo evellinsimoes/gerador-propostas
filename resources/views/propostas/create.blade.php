@@ -33,6 +33,20 @@
         <label>Desconto (%):</label>
         <input type="number" step="0.01" name="desconto" min="0" max="100" value="{{ old('desconto') }}">
 
+        <label>Validade:</label>
+        <input type="date" name="validade" value="{{ old('validade') }}">
+
+        <label>Status:</label>
+        <select name="status">
+            <option value="rascunho" {{ old('status') == 'rascunho' ? 'selected' : '' }}>Rascunho</option>
+            <option value="enviada" {{ old('status') == 'enviada' ? 'selected' : '' }}>Enviada</option>
+            <option value="aceita" {{ old('status') == 'aceita' ? 'selected' : '' }}>Aceita</option>
+            <option value="recusada" {{ old('status') == 'recusada' ? 'selected' : '' }}>Recusada</option>
+        </select>
+
+        <label>Observações:</label>
+        <textarea name="observacoes" rows="3" style="width:100%; padding:11px; margin-top:5px; border:1px solid #d3d9e0; border-radius:4px; font-size:14px; font-family:inherit;">{{ old('observacoes') }}</textarea>
+
         <hr style="margin: 20px 0;">
         <h3>Itens</h3>
 

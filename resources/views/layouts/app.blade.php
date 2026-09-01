@@ -195,6 +195,18 @@
             border-left: 4px solid #0c447c;
         }
         body.escuro .resumo-box { background: #1a1d23; }
+
+        .badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        .badge-rascunho { background: #e4e7eb; color: #5f6b7a; }
+        .badge-enviada { background: #cfe2ff; color: #0c447c; }
+        .badge-aceita { background: #d4edda; color: #1b5e20; }
+        .badge-recusada { background: #f8d7da; color: #842029; }
     </style>
 </head>
 <body>

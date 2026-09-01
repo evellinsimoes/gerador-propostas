@@ -62,6 +62,9 @@ class PropostaController extends Controller
             'cliente_id' => $request->cliente_id,
             'titulo' => $request->titulo,
             'desconto' => $request->desconto,
+            'validade' => $request->validade,
+            'status' => $request->status,
+            'observacoes' => $request->observacoes,
         ]);
 
         foreach ($request->itens as $item) {
@@ -124,6 +127,9 @@ class PropostaController extends Controller
             'cliente_id' => $request->cliente_id,
             'titulo' => $request->titulo,
             'desconto' => $request->desconto,
+            'validade' => $request->validade,
+            'status' => $request->status,
+            'observacoes' => $request->observacoes,
         ]);
 
         $proposta->itens()->delete();
