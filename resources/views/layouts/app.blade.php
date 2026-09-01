@@ -104,6 +104,18 @@
             border-radius: 4px;
             font-size: 14px;
         }
+        select {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%235f6b7a' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 14px center;
+            padding-right: 40px;
+        }
+        body.escuro select {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23a0a8b3' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+        }
         input:focus, select:focus { outline: none; border-color: #0c447c; }
         table { width: 100%; border-collapse: collapse; margin: 24px 0 12px; }
         th {
@@ -146,7 +158,7 @@
         body.escuro .menu { background: #1a1d23; border-bottom-color: #3a3f4a; }
         body.escuro .menu a { color: #6ab0f3; }
         body.escuro label { color: #a0a8b3; }
-        body.escuro input, body.escuro select { background: #1a1d23; border-color: #3a3f4a; color: #e4e7eb; }
+        body.escuro input, body.escuro select { background-color: #1a1d23; border-color: #3a3f4a; color: #e4e7eb; }
         body.escuro th { background: #1a1d23; color: #a0a8b3; }
         body.escuro td { border-bottom-color: #3a3f4a; }
         body.escuro tr:hover td { background: #2d323c; }
