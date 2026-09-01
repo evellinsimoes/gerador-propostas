@@ -46,6 +46,8 @@
         a:hover { text-decoration: underline; }
         .btn {
             display: inline-flex;
+            align-items: center;
+            justify-content: center;
             background: #0c447c;
             color: #fff;
             padding: 10px 20px;
@@ -56,9 +58,8 @@
             font-weight: 600;
             letter-spacing: 0.3px;
             margin-top: 8px;
-            align-items: center;
-            justify-content: center;
             box-sizing: border-box;
+            line-height: 1;
         }
         .btn:hover { background: #185fa5; text-decoration: none; }
         .btn-tema {
@@ -84,6 +85,12 @@
             border: 1px solid #d3d9e0;
             box-sizing: border-box;
             margin-left: 8px;
+            padding: 10px 20px;
+            font-size: 13px;
+            line-height: 1;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
         }
         .btn-cancelar:hover { background: #f4f6f9; text-decoration: none; }
         body.escuro .btn-cancelar { color: #a0a8b3; border-color: #3a3f4a; }
@@ -181,8 +188,8 @@
 <body>
     <div class="container">
         <nav class="menu">
-            <a href="{{ route('clientes.index') }}">Clientes</a>
             <a href="{{ route('propostas.index') }}">Propostas</a>
+            <a href="{{ route('clientes.index') }}">Clientes</a>
             <button id="btn-tema" onclick="alternarTema()" class="btn-tema" title="Alternar tema"><i class="bi bi-moon"></i></button>
         </nav>
         @yield('conteudo')
