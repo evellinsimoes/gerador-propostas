@@ -45,7 +45,7 @@
         a { color: #185fa5; text-decoration: none; }
         a:hover { text-decoration: underline; }
         .btn {
-            display: inline-block;
+            display: inline-flex;
             background: #0c447c;
             color: #fff;
             padding: 10px 20px;
@@ -56,6 +56,9 @@
             font-weight: 600;
             letter-spacing: 0.3px;
             margin-top: 8px;
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box;
         }
         .btn:hover { background: #185fa5; text-decoration: none; }
         .btn-tema {
@@ -75,6 +78,16 @@
             font-size: 16px;
         }
         .btn-remover:hover { background: #a93226; }
+        .btn-cancelar {
+            background: transparent;
+            color: #5f6b7a;
+            border: 1px solid #d3d9e0;
+            box-sizing: border-box;
+            margin-left: 8px;
+        }
+        .btn-cancelar:hover { background: #f4f6f9; text-decoration: none; }
+        body.escuro .btn-cancelar { color: #a0a8b3; border-color: #3a3f4a; }
+        body.escuro .btn-cancelar:hover { background: #1a1d23; }
         label { display: block; margin-top: 14px; font-weight: 600; font-size: 13px; color: #5f6b7a; }
         input, select {
             width: 100%;

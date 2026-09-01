@@ -31,5 +31,6 @@
 
         <br><br>
         <button type="submit" class="btn">Salvar</button>
+        <a href="{{ route('clientes.index') }}" class="btn btn-cancelar">Cancelar</a>
     </form>
 @endsection

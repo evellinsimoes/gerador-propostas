@@ -64,6 +64,7 @@
 
         <br><br>
         <button type="submit" class="btn">Salvar Proposta</button>
+        <a href="{{ route('propostas.index') }}" class="btn btn-cancelar">Cancelar</a>
     </form>
 
     <script>
