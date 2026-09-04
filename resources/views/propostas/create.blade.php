@@ -19,33 +19,33 @@
     <form action="{{ route('propostas.store') }}" method="POST">
         @csrf
 
-        <label>Cliente:</label>
-        <select name="cliente_id" required>
+        <label for="cliente_id">Cliente:</label>
+        <select id="cliente_id" name="cliente_id" required>
             <option value="">Selecione...</option>
             @foreach ($clientes as $cliente)
-                <option value="{{ $cliente->id }}">{{ $cliente->nome }}</option>
+                <option value="{{ $cliente->id }}" {{ old('cliente_id') == $cliente->id ? 'selected' : '' }}>{{ $cliente->nome }}</option>
             @endforeach
         </select>
 
-        <label>Título:</label>
-        <input type="text" name="titulo" value="{{ old('titulo') }}" required>
+        <label for="titulo">Título:</label>
+        <input type="text" id="titulo" name="titulo" value="{{ old('titulo') }}" required>
 
-        <label>Desconto (%):</label>
-        <input type="number" step="0.01" name="desconto" min="0" max="100" value="{{ old('desconto') }}">
+        <label for="desconto">Desconto (%):</label>
+        <input type="number" step="0.01" id="desconto" name="desconto" min="0" max="100" value="{{ old('desconto') }}">
 
-        <label>Validade:</label>
-        <input type="date" name="validade" value="{{ old('validade') }}">
+        <label for="validade">Validade:</label>
+        <input type="date" id="validade" name="validade" value="{{ old('validade') }}">
 
-        <label>Status:</label>
-        <select name="status">
+        <label for="status">Status:</label>
+        <select id="status" name="status">
             <option value="rascunho" {{ old('status') == 'rascunho' ? 'selected' : '' }}>Rascunho</option>
             <option value="enviada" {{ old('status') == 'enviada' ? 'selected' : '' }}>Enviada</option>
             <option value="aceita" {{ old('status') == 'aceita' ? 'selected' : '' }}>Aceita</option>
             <option value="recusada" {{ old('status') == 'recusada' ? 'selected' : '' }}>Recusada</option>
         </select>
 
-        <label>Observações:</label>
-        <textarea name="observacoes" rows="3" style="width:100%; padding:11px; margin-top:5px; border:1px solid #d3d9e0; border-radius:4px; font-size:14px; font-family:inherit;">{{ old('observacoes') }}</textarea>
+        <label for="observacoes">Observações:</label>
+        <textarea id="observacoes" name="observacoes" rows="3">{{ old('observacoes') }}</textarea>
 
         <hr style="margin: 20px 0;">
         <h3>Itens</h3>
@@ -107,7 +107,6 @@
 
         function calcularTotal() {
             let subtotal = 0;
-            // percorre cada item e soma quantidade × valor
             document.querySelectorAll('#itens .item').forEach(item => {
                 const qtd = parseFloat(item.querySelector('[name*="[quantidade]"]').value) || 0;
                 const valor = parseFloat(item.querySelector('[name*="[valor_unitario]"]').value) || 0;
@@ -118,7 +117,6 @@
             const valorDesconto = subtotal * (descPercent / 100);
             const total = subtotal - valorDesconto;
 
-            // formata em R$ padrão brasileiro
             const fmt = (n) => 'R$ ' + n.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2});
 
             document.getElementById('r-subtotal').textContent = fmt(subtotal);
@@ -126,9 +124,7 @@
             document.getElementById('r-total').textContent = fmt(total);
         }
 
-        // recalcula sempre que algo muda no formulário
         document.addEventListener('input', calcularTotal);
-        // calcula uma vez ao abrir
         calcularTotal();
     </script>
 @endsection

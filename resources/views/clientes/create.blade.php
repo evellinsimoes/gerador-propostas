@@ -19,14 +19,14 @@
     <form action="{{ route('clientes.store') }}" method="POST">
         @csrf
 
-        <label>Nome:</label>
-        <input type="text" name="nome" value="{{ old('nome') }}" required>
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" value="{{ old('nome') }}" required>
 
-        <label>E-mail:</label>
-        <input type="email" name="email" value="{{ old('email') }}">
+        <label for="email">E-mail:</label>
+        <input type="email" id="email" name="email" value="{{ old('email') }}">
 
-        <label>Telefone:</label>
-        <input type="text" name="telefone" value="{{ old('telefone') }}">
+        <label for="telefone">Telefone:</label>
+        <input type="text" id="telefone" name="telefone" value="{{ old('telefone') }}">
 
         <br><br>
         <button type="submit" class="btn">Salvar</button>

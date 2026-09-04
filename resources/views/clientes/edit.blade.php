@@ -20,14 +20,14 @@
         @csrf
         @method('PUT')
 
-        <label>Nome:</label>
-        <input type="text" name="nome" value="{{ old('nome', $cliente->nome) }}" required>
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" value="{{ old('nome', $cliente->nome) }}" required>
 
-        <label>E-mail:</label>
-        <input type="email" name="email" value="{{ old('email', $cliente->email) }}">
+        <label for="email">E-mail:</label>
+        <input type="email" id="email" name="email" value="{{ old('email', $cliente->email) }}">
 
-        <label>Telefone:</label>
-        <input type="text" name="telefone" value="{{ old('telefone', $cliente->telefone) }}">
+        <label for="telefone">Telefone:</label>
+        <input type="text" id="telefone" name="telefone" value="{{ old('telefone', $cliente->telefone) }}">
 
         <br><br>
         <button type="submit" class="btn">Salvar</button>

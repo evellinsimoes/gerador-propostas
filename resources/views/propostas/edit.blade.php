@@ -20,8 +20,8 @@
         @csrf
         @method('PUT')
 
-        <label>Cliente:</label>
-        <select name="cliente_id" required>
+        <label for="cliente_id">Cliente:</label>
+        <select id="cliente_id" name="cliente_id" required>
             <option value="">Selecione...</option>
             @foreach ($clientes as $cliente)
                 <option value="{{ $cliente->id }}" {{ $proposta->cliente_id == $cliente->id ? 'selected' : '' }}>
@@ -30,25 +30,25 @@
             @endforeach
         </select>
 
-        <label>Título:</label>
-        <input type="text" name="titulo" value="{{ old('titulo', $proposta->titulo) }}" required>
+        <label for="titulo">Título:</label>
+        <input type="text" id="titulo" name="titulo" value="{{ old('titulo', $proposta->titulo) }}" required>
 
-        <label>Desconto (%):</label>
-        <input type="text" name="desconto" value="{{ old('desconto', $proposta->desconto) }}">
+        <label for="desconto">Desconto (%):</label>
+        <input type="text" id="desconto" name="desconto" value="{{ old('desconto', $proposta->desconto) }}">
 
-        <label>Validade:</label>
-        <input type="date" name="validade" value="{{ old('validade', $proposta->validade) }}">
+        <label for="validade">Validade:</label>
+        <input type="date" id="validade" name="validade" value="{{ old('validade', $proposta->validade) }}">
 
-        <label>Status:</label>
-        <select name="status">
+        <label for="status">Status:</label>
+        <select id="status" name="status">
             <option value="rascunho" {{ $proposta->status == 'rascunho' ? 'selected' : '' }}>Rascunho</option>
             <option value="enviada" {{ $proposta->status == 'enviada' ? 'selected' : '' }}>Enviada</option>
             <option value="aceita" {{ $proposta->status == 'aceita' ? 'selected' : '' }}>Aceita</option>
             <option value="recusada" {{ $proposta->status == 'recusada' ? 'selected' : '' }}>Recusada</option>
         </select>
 
-        <label>Observações:</label>
-        <textarea name="observacoes" rows="3" style="width:100%; padding:11px; margin-top:5px; border:1px solid #d3d9e0; border-radius:4px; font-size:14px; font-family:inherit;">{{ old('observacoes', $proposta->observacoes) }}</textarea>
+        <label for="observacoes">Observações:</label>
+        <textarea id="observacoes" name="observacoes" rows="3">{{ old('observacoes', $proposta->observacoes) }}</textarea>
 
         <hr style="margin: 20px 0;">
         <h3>Itens</h3>
@@ -67,7 +67,7 @@
         <br>
         <button type="button" class="btn" onclick="adicionarItem()">+ Adicionar item</button>
         <br>
-        
+
         <div id="resumo" class="resumo-box">
             <div style="display:flex; justify-content:space-between;">
                 <span>Subtotal:</span> <span id="r-subtotal">R$ 0,00</span>
@@ -109,6 +109,7 @@
                 mostrarAviso('A proposta precisa ter pelo menos um item.');
             }
         }
+
         function calcularTotal() {
             let subtotal = 0;
             document.querySelectorAll('#itens .item').forEach(item => {
