@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -96,13 +96,14 @@
         body.escuro .btn-cancelar { color: #a0a8b3; border-color: #3a3f4a; }
         body.escuro .btn-cancelar:hover { background: #1a1d23; }
         label { display: block; margin-top: 14px; font-weight: 600; font-size: 13px; color: #5f6b7a; }
-        input, select {
+        input, select, textarea {
             width: 100%;
             padding: 11px;
             margin-top: 5px;
             border: 1px solid #d3d9e0;
             border-radius: 4px;
             font-size: 14px;
+            font-family: inherit;
         }
         select {
             -webkit-appearance: none;
@@ -116,7 +117,7 @@
         body.escuro select {
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23a0a8b3' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
         }
-        input:focus, select:focus { outline: none; border-color: #0c447c; }
+        input:focus, select:focus, textarea:focus { outline: none; border-color: #0c447c; }
         table { width: 100%; border-collapse: collapse; margin: 24px 0 12px; }
         th {
             background: #f4f6f9;
@@ -151,14 +152,14 @@
         .item { display: flex; gap: 10px; margin-top: 10px; }
         .item input { margin-top: 0; }
         hr { border: none; border-top: 1px solid #e4e7eb; margin: 24px 0; }
-        
+
         body.escuro { background: #1a1d23; color: #e4e7eb; }
         body.escuro .container { background: #252a33; border-top-color: #4a90d9; }
         body.escuro h1, body.escuro h3 { color: #6ab0f3; border-bottom-color: #3a3f4a; }
         body.escuro .menu { background: #1a1d23; border-bottom-color: #3a3f4a; }
         body.escuro .menu a { color: #6ab0f3; }
         body.escuro label { color: #a0a8b3; }
-        body.escuro input, body.escuro select { background-color: #1a1d23; border-color: #3a3f4a; color: #e4e7eb; }
+        body.escuro input, body.escuro select, body.escuro textarea { background-color: #1a1d23; border-color: #3a3f4a; color: #e4e7eb; }
         body.escuro th { background: #1a1d23; color: #a0a8b3; }
         body.escuro td { border-bottom-color: #3a3f4a; }
         body.escuro tr:hover td { background: #2d323c; }
@@ -166,6 +167,7 @@
         body.escuro .btn-tema { color: #6ab0f3; background: transparent; }
         body.escuro a { color: #6ab0f3; }
         body.escuro .aviso { background: #2e2a1a; color: #e0c56b; }
+        body.escuro .sucesso { background: #1b2e1f; color: #a3d9a5; }
         body.escuro .modal-box { background: #252a33 !important; }
         body.escuro .modal-texto { color: #e4e7eb !important; }
 
@@ -173,18 +175,12 @@
         @media (max-width: 768px) {
             body { padding: 15px 10px; }
             .container { padding: 0 16px 20px; }
-
             h1 { padding: 20px 16px 16px; margin: 0 -16px 16px; font-size: 20px; }
             .menu { margin: 0 -16px 16px; padding: 12px 16px; }
-
-            /* tabela vira rolável na horizontal em vez de cortar */
             .container { overflow-x: hidden; }
             table { display: block; overflow-x: auto; white-space: nowrap; }
-
-            /* os campos de item empilham em vez de espremer */
             .item { flex-wrap: wrap; }
             .item input { flex: 1 1 100%; }
-
         }
 
         .resumo-box {
@@ -217,9 +213,24 @@
             <button id="btn-tema" onclick="alternarTema()" class="btn-tema" title="Alternar tema"><i class="bi bi-moon"></i></button>
         </nav>
         @yield('conteudo')
-    </div>   
+    </div>
 
-        <script>
+    <div id="modal-excluir" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:100; align-items:center; justify-content:center;">
+        <div style="background:#fff; padding:28px; border-radius:8px; max-width:380px; text-align:center;" class="modal-box">
+            <p style="font-size:16px; margin-bottom:20px; color:#2c3e50;" class="modal-texto">Tem certeza que deseja excluir?</p>
+            <button onclick="fecharModal()" class="btn" style="background:#888;">Cancelar</button>
+            <button onclick="confirmarExclusao()" class="btn" style="background:#c0392b;">Excluir</button>
+        </div>
+    </div>
+
+    <div id="modal-aviso" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:100; align-items:center; justify-content:center;">
+        <div style="background:#fff; padding:28px; border-radius:8px; max-width:380px; text-align:center;" class="modal-box">
+            <p style="font-size:16px; margin-bottom:20px; color:#2c3e50;" class="modal-texto" id="texto-aviso"></p>
+            <button onclick="fecharAviso()" class="btn">OK</button>
+        </div>
+    </div>
+
+    <script>
         if (localStorage.getItem('tema') === 'escuro') {
             document.body.classList.add('escuro');
             document.getElementById('btn-tema').innerHTML = '<i class="bi bi-sun"></i>';
@@ -252,19 +263,20 @@
         function fecharAviso() {
             document.getElementById('modal-aviso').style.display = 'none';
         }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                fecharModal();
+                fecharAviso();
+            }
+        });
+
+        document.getElementById('modal-excluir').addEventListener('click', function(e) {
+            if (e.target === this) fecharModal();
+        });
+        document.getElementById('modal-aviso').addEventListener('click', function(e) {
+            if (e.target === this) fecharAviso();
+        });
     </script>
-    <div id="modal-excluir" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:100; align-items:center; justify-content:center;">
-        <div style="background:#fff; padding:28px; border-radius:8px; max-width:380px; text-align:center;" class="modal-box">
-            <p style="font-size:16px; margin-bottom:20px; color:#2c3e50;" class="modal-texto">Tem certeza que deseja excluir?</p>
-            <button onclick="fecharModal()" class="btn" style="background:#888;">Cancelar</button>
-            <button onclick="confirmarExclusao()" class="btn" style="background:#c0392b;">Excluir</button>
-        </div>
-    </div>
-    <div id="modal-aviso" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:100; align-items:center; justify-content:center;">
-        <div style="background:#fff; padding:28px; border-radius:8px; max-width:380px; text-align:center;" class="modal-box">
-            <p style="font-size:16px; margin-bottom:20px; color:#2c3e50;" class="modal-texto" id="texto-aviso"></p>
-            <button onclick="fecharAviso()" class="btn">OK</button>
-        </div>
-    </div>
 </body>
 </html>
