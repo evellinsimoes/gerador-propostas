@@ -16,7 +16,7 @@
             <tr><th>Título</th><th>Cliente</th><th>Valor</th><th>Status</th><th>Itens</th><th>Ações</th></tr>
         </thead>
         <tbody>
-            @foreach ($propostas as $proposta)
+            @forelse ($propostas as $proposta)
                 <tr>
                     <td>{{ $proposta->titulo }}</td>
                     <td>{{ $proposta->cliente->nome }}</td>
@@ -37,7 +37,13 @@
                         </form>
                     </td>
                 </tr>
-            @endforeach
+            @empty
+                <tr>
+                    <td colspan="6" style="text-align:center; padding:30px; color:#5f6b7a;">
+                        Nenhuma proposta ainda. <a href="{{ route('propostas.create') }}">Crie a primeira!</a>
+                    </td>
+                </tr>
+            @endforelse
         </tbody>
     </table>
 @endsection

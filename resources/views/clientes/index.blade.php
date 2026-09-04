@@ -20,7 +20,7 @@
             <tr><th>Nome</th><th>E-mail</th><th>Telefone</th><th>Ações</th></tr>
         </thead>
         <tbody>
-            @foreach ($clientes as $cliente)
+            @forelse ($clientes as $cliente)
                 <tr>
                     <td>{{ $cliente->nome }}</td>
                     <td>{{ $cliente->email }}</td>
@@ -35,7 +35,13 @@
                         </form>
                     </td>
                 </tr>
-            @endforeach
+            @empty
+                <tr>
+                    <td colspan="4" style="text-align:center; padding:30px; color:#5f6b7a;">
+                        Nenhum cliente ainda. <a href="{{ route('clientes.create') }}">Crie o primeiro!</a>
+                    </td>
+                </tr>
+            @endforelse
         </tbody>
     </table>
 @endsection
