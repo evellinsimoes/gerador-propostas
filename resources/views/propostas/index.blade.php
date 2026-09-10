@@ -30,7 +30,7 @@
                         &nbsp;|&nbsp;
                         <a href="{{ route('propostas.edit', $proposta->id) }}"><i class="bi bi-pencil"></i> Editar</a>
                         &nbsp;|&nbsp;
-                        <form action="{{ route('propostas.destroy', $proposta->id) }}" method="POST" style="display:inline;" onsubmit="event.preventDefault(); abrirModal(this);">
+                        <form action="{{ route('propostas.destroy', $proposta->id) }}" method="POST" style="display:inline;" onsubmit="event.preventDefault(); abrirModal(this, '{{ addslashes($proposta->titulo) }}');">
                             @csrf
                             @method('DELETE')
                             <button type="submit" style="background:none; border:none; color:#c0392b; cursor:pointer; font-size:14px; padding:0;"><i class="bi bi-trash"></i> Excluir</button>

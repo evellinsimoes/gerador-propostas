@@ -217,7 +217,7 @@
 
     <div id="modal-excluir" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:100; align-items:center; justify-content:center;">
         <div style="background:#fff; padding:28px; border-radius:8px; max-width:380px; text-align:center;" class="modal-box">
-            <p style="font-size:16px; margin-bottom:20px; color:#2c3e50;" class="modal-texto">Tem certeza que deseja excluir?</p>
+            <p style="font-size:16px; margin-bottom:20px; color:#2c3e50;" class="modal-texto" id="texto-excluir">Tem certeza que deseja excluir?</p>
             <button onclick="fecharModal()" class="btn" style="background:#888;">Cancelar</button>
             <button onclick="confirmarExclusao()" class="btn" style="background:#c0392b;">Excluir</button>
         </div>
@@ -245,8 +245,9 @@
 
         let formParaExcluir = null;
 
-        function abrirModal(form) {
+        function abrirModal(form, nome) {
             formParaExcluir = form;
+            document.getElementById('texto-excluir').textContent = 'Deseja realmente excluir "' + nome + '"?';
             document.getElementById('modal-excluir').style.display = 'flex';
         }
         function fecharModal() {
