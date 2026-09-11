@@ -6,19 +6,42 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
     <title>@yield('titulo', 'Gerador de Propostas')</title>
     <style>
+        :root {
+            --fundo: #eef1f5;
+            --card: #fff;
+            --texto: #2c3e50;
+            --titulo: #0c447c;
+            --borda: #e4e7eb;
+            --borda-input: #d3d9e0;
+            --menu-fundo: #f4f6f9;
+            --label: #5f6b7a;
+            --hover-linha: #f9fafb;
+        }
+        body.escuro {
+            --fundo: #1a1d23;
+            --card: #252a33;
+            --texto: #e4e7eb;
+            --titulo: #6ab0f3;
+            --borda: #3a3f4a;
+            --borda-input: #3a3f4a;
+            --menu-fundo: #1a1d23;
+            --label: #a0a8b3;
+            --hover-linha: #2d323c;
+        }
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Segoe UI', Tahoma, sans-serif;
-            background: #eef1f5;
-            color: #2c3e50;
+            background: var(--fundo);
+            color: var(--texto);
             padding: 40px 20px;
             line-height: 1.6;
         }
         .container {
             max-width: 820px;
             margin: 0 auto;
-            background: #fff;
-            border-top: 4px solid #0c447c;
+            background: var(--card);
+            border-top: 4px solid var(--titulo);
             border-radius: 4px;
             box-shadow: 0 1px 4px rgba(0,0,0,0.08);
             overflow: hidden;
@@ -27,23 +50,24 @@
         .menu {
             margin: 0 -32px 24px;
             padding: 14px 32px;
-            background: #f4f6f9;
-            border-bottom: 1px solid #e4e7eb;
+            background: var(--menu-fundo);
+            border-bottom: 1px solid var(--borda);
             display: flex;
             gap: 24px;
         }
-        .menu a { font-weight: 600; font-size: 14px; color: #0c447c; }
+        .menu a { font-weight: 600; font-size: 14px; color: var(--titulo); }
         h1 {
-            color: #0c447c;
+            color: var(--titulo);
             font-size: 24px;
             font-weight: 600;
             padding: 28px 32px 20px;
             margin: 0 -32px 24px;
-            border-bottom: 1px solid #e4e7eb;
+            border-bottom: 1px solid var(--borda);
         }
-        h3 { color: #0c447c; font-size: 16px; margin: 20px 0 10px; }
+        h3 { color: var(--titulo); font-size: 16px; margin: 20px 0 10px; }
         a { color: #185fa5; text-decoration: none; }
         a:hover { text-decoration: underline; }
+        body.escuro a { color: #6ab0f3; }
         .btn {
             display: inline-flex;
             align-items: center;
@@ -70,7 +94,7 @@
             border-radius: 50%;
             cursor: pointer;
             font-size: 18px;
-            color: #0c447c;
+            color: var(--titulo);
         }
         .btn-tema:hover { background: rgba(0,0,0,0.06); }
         .btn-remover {
@@ -81,8 +105,8 @@
         .btn-remover:hover { background: #a93226; }
         .btn-cancelar {
             background: transparent;
-            color: #5f6b7a;
-            border: 1px solid #d3d9e0;
+            color: var(--label);
+            border: 1px solid var(--borda-input);
             box-sizing: border-box;
             margin-left: 8px;
             padding: 10px 20px;
@@ -92,18 +116,18 @@
             align-items: center;
             justify-content: center;
         }
-        .btn-cancelar:hover { background: #f4f6f9; text-decoration: none; }
-        body.escuro .btn-cancelar { color: #a0a8b3; border-color: #3a3f4a; }
-        body.escuro .btn-cancelar:hover { background: #1a1d23; }
-        label { display: block; margin-top: 14px; font-weight: 600; font-size: 13px; color: #5f6b7a; }
+        .btn-cancelar:hover { background: var(--menu-fundo); text-decoration: none; }
+        label { display: block; margin-top: 14px; font-weight: 600; font-size: 13px; color: var(--label); }
         input, select, textarea {
             width: 100%;
             padding: 11px;
             margin-top: 5px;
-            border: 1px solid #d3d9e0;
+            border: 1px solid var(--borda-input);
             border-radius: 4px;
             font-size: 14px;
             font-family: inherit;
+            background-color: var(--card);
+            color: var(--texto);
         }
         select {
             -webkit-appearance: none;
@@ -117,20 +141,20 @@
         body.escuro select {
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23a0a8b3' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
         }
-        input:focus, select:focus, textarea:focus { outline: none; border-color: #0c447c; }
+        input:focus, select:focus, textarea:focus { outline: none; border-color: var(--titulo); }
         table { width: 100%; border-collapse: collapse; margin: 24px 0 12px; }
         th {
-            background: #f4f6f9;
-            color: #5f6b7a;
+            background: var(--menu-fundo);
+            color: var(--label);
             padding: 12px;
             text-align: left;
             font-size: 12px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            border-bottom: 2px solid #0c447c;
+            border-bottom: 2px solid var(--titulo);
         }
-        td { padding: 13px 12px; border-bottom: 1px solid #eaedf1; font-size: 14px; }
-        tr:hover td { background: #f9fafb; }
+        td { padding: 13px 12px; border-bottom: 1px solid var(--borda); font-size: 14px; }
+        tr:hover td { background: var(--hover-linha); }
         .sucesso {
             background: #e8f5e9;
             color: #1b5e20;
@@ -140,6 +164,7 @@
             margin: 18px 0;
             font-size: 14px;
         }
+        body.escuro .sucesso { background: #1b2e1f; color: #a3d9a5; }
         .aviso {
             background: #fff8e1;
             color: #8a6d00;
@@ -149,48 +174,18 @@
             margin: 18px 0;
             font-size: 14px;
         }
+        body.escuro .aviso { background: #2e2a1a; color: #e0c56b; }
         .item { display: flex; gap: 10px; margin-top: 10px; }
         .item input { margin-top: 0; }
-        hr { border: none; border-top: 1px solid #e4e7eb; margin: 24px 0; }
-
-        body.escuro { background: #1a1d23; color: #e4e7eb; }
-        body.escuro .container { background: #252a33; border-top-color: #4a90d9; }
-        body.escuro h1, body.escuro h3 { color: #6ab0f3; border-bottom-color: #3a3f4a; }
-        body.escuro .menu { background: #1a1d23; border-bottom-color: #3a3f4a; }
-        body.escuro .menu a { color: #6ab0f3; }
-        body.escuro label { color: #a0a8b3; }
-        body.escuro input, body.escuro select, body.escuro textarea { background-color: #1a1d23; border-color: #3a3f4a; color: #e4e7eb; }
-        body.escuro th { background: #1a1d23; color: #a0a8b3; }
-        body.escuro td { border-bottom-color: #3a3f4a; }
-        body.escuro tr:hover td { background: #2d323c; }
-        body.escuro hr { border-top-color: #3a3f4a; }
-        body.escuro .btn-tema { color: #6ab0f3; background: transparent; }
-        body.escuro a { color: #6ab0f3; }
-        body.escuro .aviso { background: #2e2a1a; color: #e0c56b; }
-        body.escuro .sucesso { background: #1b2e1f; color: #a3d9a5; }
-        body.escuro .modal-box { background: #252a33 !important; }
-        body.escuro .modal-texto { color: #e4e7eb !important; }
-
-        /* Responsividade — celular e tablet */
-        @media (max-width: 768px) {
-            body { padding: 15px 10px; }
-            .container { padding: 0 16px 20px; }
-            h1 { padding: 20px 16px 16px; margin: 0 -16px 16px; font-size: 20px; }
-            .menu { margin: 0 -16px 16px; padding: 12px 16px; }
-            .container { overflow-x: hidden; }
-            table { display: block; overflow-x: auto; white-space: nowrap; }
-            .item { flex-wrap: wrap; }
-            .item input { flex: 1 1 100%; }
-        }
+        hr { border: none; border-top: 1px solid var(--borda); margin: 24px 0; }
 
         .resumo-box {
             margin-top: 24px;
             padding: 16px 20px;
-            background: #f4f6f9;
+            background: var(--menu-fundo);
             border-radius: 6px;
-            border-left: 4px solid #0c447c;
+            border-left: 4px solid var(--titulo);
         }
-        body.escuro .resumo-box { background: #1a1d23; }
 
         .badge {
             display: inline-block;
@@ -203,6 +198,20 @@
         .badge-enviada { background: #cfe2ff; color: #0c447c; }
         .badge-aceita { background: #d4edda; color: #1b5e20; }
         .badge-recusada { background: #f8d7da; color: #842029; }
+
+        .modal-box { background: var(--card); }
+        .modal-texto { color: var(--texto); }
+
+        /* Responsividade — celular e tablet */
+        @media (max-width: 768px) {
+            body { padding: 15px 10px; }
+            .container { padding: 0 16px 20px; overflow-x: hidden; }
+            h1 { padding: 20px 16px 16px; margin: 0 -16px 16px; font-size: 20px; }
+            .menu { margin: 0 -16px 16px; padding: 12px 16px; }
+            table { display: block; overflow-x: auto; white-space: nowrap; }
+            .item { flex-wrap: wrap; }
+            .item input { flex: 1 1 100%; }
+        }
     </style>
 </head>
 <body>
@@ -216,16 +225,16 @@
     </div>
 
     <div id="modal-excluir" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:100; align-items:center; justify-content:center;">
-        <div style="background:#fff; padding:28px; border-radius:8px; max-width:380px; text-align:center;" class="modal-box">
-            <p style="font-size:16px; margin-bottom:20px; color:#2c3e50;" class="modal-texto" id="texto-excluir">Tem certeza que deseja excluir?</p>
+        <div style="padding:28px; border-radius:8px; max-width:380px; text-align:center;" class="modal-box">
+            <p style="font-size:16px; margin-bottom:20px;" class="modal-texto" id="texto-excluir">Tem certeza que deseja excluir?</p>
             <button onclick="fecharModal()" class="btn" style="background:#888;">Cancelar</button>
             <button onclick="confirmarExclusao()" class="btn" style="background:#c0392b;">Excluir</button>
         </div>
     </div>
 
     <div id="modal-aviso" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:100; align-items:center; justify-content:center;">
-        <div style="background:#fff; padding:28px; border-radius:8px; max-width:380px; text-align:center;" class="modal-box">
-            <p style="font-size:16px; margin-bottom:20px; color:#2c3e50;" class="modal-texto" id="texto-aviso"></p>
+        <div style="padding:28px; border-radius:8px; max-width:380px; text-align:center;" class="modal-box">
+            <p style="font-size:16px; margin-bottom:20px;" class="modal-texto" id="texto-aviso"></p>
             <button onclick="fecharAviso()" class="btn">OK</button>
         </div>
     </div>
