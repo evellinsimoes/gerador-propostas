@@ -56,10 +56,10 @@
         <div id="itens">
             @foreach ($proposta->itens as $i => $item)
                 <div class="item">
-                    <input type="text" name="itens[{{ $i }}][descricao]" value="{{ $item->descricao }}" placeholder="Descrição" required>
-                    <input type="number" name="itens[{{ $i }}][quantidade]" value="{{ $item->quantidade }}" placeholder="Qtd" required>
-                    <input type="number" step="0.01" name="itens[{{ $i }}][valor_unitario]" value="{{ $item->valor_unitario }}" placeholder="Valor unitário" required>
-                    <button type="button" class="btn-remover" onclick="removerItem(this)"><i class="bi bi-x"></i></button>
+                    <input type="text" name="itens[{{ $i }}][descricao]" value="{{ $item->descricao }}" placeholder="Descrição" aria-label="Descrição do item" required>
+                    <input type="number" min="1" name="itens[{{ $i }}][quantidade]" value="{{ $item->quantidade }}" placeholder="Qtd" aria-label="Quantidade" required>
+                    <input type="number" min="0" step="0.01" name="itens[{{ $i }}][valor_unitario]" value="{{ $item->valor_unitario }}" placeholder="Valor unitário" aria-label="Valor unitário" required>
+                    <button type="button" class="btn-remover" onclick="removerItem(this)" aria-label="Remover item"><i class="bi bi-x"></i></button>
                 </div>
             @endforeach
         </div>
@@ -92,19 +92,21 @@
             const div = document.createElement('div');
             div.classList.add('item');
             div.innerHTML = `
-                <input type="text" name="itens[${contador}][descricao]" placeholder="Descrição" required>
-                <input type="number" name="itens[${contador}][quantidade]" placeholder="Qtd" required>
-                <input type="number" step="0.01" name="itens[${contador}][valor_unitario]" placeholder="Valor unitário" required>
-                <button type="button" class="btn-remover" onclick="removerItem(this)"><i class="bi bi-x"></i></button>
+                <input type="text" name="itens[${contador}][descricao]" placeholder="Descrição" aria-label="Descrição do item" required>
+                <input type="number" min="1" name="itens[${contador}][quantidade]" placeholder="Qtd" aria-label="Quantidade" required>
+                <input type="number" min="0" step="0.01" name="itens[${contador}][valor_unitario]" placeholder="Valor unitário" aria-label="Valor unitário" required>
+                <button type="button" class="btn-remover" onclick="removerItem(this)" aria-label="Remover item"><i class="bi bi-x"></i></button>
             `;
             document.getElementById('itens').appendChild(div);
             contador++;
+            calcularTotal();
         }
 
         function removerItem(botao) {
             const itens = document.querySelectorAll('#itens .item');
             if (itens.length > 1) {
                 botao.parentElement.remove();
+                calcularTotal();
             } else {
                 mostrarAviso('A proposta precisa ter pelo menos um item.');
             }
@@ -118,7 +120,8 @@
                 subtotal += qtd * valor;
             });
 
-            const descPercent = parseFloat(document.querySelector('[name="desconto"]').value) || 0;
+            let descPercent = parseFloat(document.querySelector('[name="desconto"]').value) || 0;
+            descPercent = Math.min(Math.max(descPercent, 0), 100);
             const valorDesconto = subtotal * (descPercent / 100);
             const total = subtotal - valorDesconto;
 
