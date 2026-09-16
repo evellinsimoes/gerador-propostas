@@ -31,7 +31,7 @@
                         <form action="{{ route('clientes.destroy', $cliente->id) }}" method="POST" style="display:inline;" onsubmit="event.preventDefault(); abrirModal(this, '{{ addslashes($cliente->nome) }}');">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" style="background:none; border:none; color:#c0392b; cursor:pointer; font-size:14px; padding:0;"><i class="bi bi-trash"></i> Excluir</button>
+                            <button type="submit" class="link-excluir"><i class="bi bi-trash"></i> Excluir</button>
                         </form>
                     </td>
                 </tr>

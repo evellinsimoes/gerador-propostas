@@ -11,8 +11,8 @@ class ClienteController extends Controller
     private function regras()
     {
         return [
-            'nome' => 'required',
-            'email' => 'nullable|email',
+            'nome' => 'required|max:255',
+            'email' => 'nullable|email|max:255',
             'telefone' => 'nullable',
         ];
     }
@@ -21,7 +21,9 @@ class ClienteController extends Controller
     {
         return [
             'nome.required' => 'O nome é obrigatório.',
+            'nome.max' => 'O nome não pode ter mais de 255 caracteres.',
             'email.email' => 'Digite um e-mail válido.',
+            'email.max' => 'O e-mail não pode ter mais de 255 caracteres.',
         ];
     }
 

@@ -16,6 +16,7 @@
             --menu-fundo: #f4f6f9;
             --label: #5f6b7a;
             --hover-linha: #f9fafb;
+            --perigo: #c0392b;
         }
         body.escuro {
             --fundo: #1a1d23;
@@ -27,6 +28,7 @@
             --menu-fundo: #1a1d23;
             --label: #a0a8b3;
             --hover-linha: #2d323c;
+            --perigo: #ff8a80;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -141,7 +143,7 @@
         body.escuro select {
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23a0a8b3' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
         }
-        input:focus, select:focus, textarea:focus { outline: none; border-color: var(--titulo); }
+        input:focus, select:focus, textarea:focus { outline: 2px solid var(--titulo); outline-offset: 2px; border-color: var(--titulo); }
         table { width: 100%; border-collapse: collapse; margin: 24px 0 12px; }
         th {
             background: var(--menu-fundo);
@@ -154,7 +156,12 @@
             border-bottom: 2px solid var(--titulo);
         }
         td { padding: 13px 12px; border-bottom: 1px solid var(--borda); font-size: 14px; }
+        td:last-child { white-space: nowrap; padding-right: 16px; }
         tr:hover td { background: var(--hover-linha); }
+        .link-excluir {
+            background: none; border: none; color: var(--perigo);
+            cursor: pointer; font-size: 14px; padding: 0;
+        }
         .sucesso {
             background: #e8f5e9;
             color: #1b5e20;
@@ -194,7 +201,7 @@
             font-size: 12px;
             font-weight: 600;
         }
-        .badge-rascunho { background: #e4e7eb; color: #5f6b7a; }
+        .badge-rascunho { background: #e4e7eb; color: #4b5563; }
         .badge-enviada { background: #cfe2ff; color: #0c447c; }
         .badge-aceita { background: #d4edda; color: #1b5e20; }
         .badge-recusada { background: #f8d7da; color: #842029; }
@@ -209,6 +216,7 @@
             h1 { padding: 20px 16px 16px; margin: 0 -16px 16px; font-size: 20px; }
             .menu { margin: 0 -16px 16px; padding: 12px 16px; }
             table { display: block; overflow-x: auto; white-space: nowrap; }
+            td:last-child { white-space: nowrap !important; }
             .item { flex-wrap: wrap; }
             .item input { flex: 1 1 100%; }
         }

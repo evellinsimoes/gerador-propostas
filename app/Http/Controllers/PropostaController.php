@@ -14,10 +14,10 @@ class PropostaController extends Controller
     {
         return [
             'cliente_id' => 'required|exists:clientes,id',
-            'titulo' => 'required',
+            'titulo' => 'required|max:255',
             'desconto' => 'nullable|numeric|min:0|max:100',
             'itens' => 'required|array|min:1',
-            'itens.*.descricao' => 'required',
+            'itens.*.descricao' => 'required|max:255',
             'itens.*.quantidade' => 'required|integer|min:1',
             'itens.*.valor_unitario' => 'required|numeric|min:0',
         ];
@@ -29,12 +29,14 @@ class PropostaController extends Controller
         return [
             'cliente_id.required' => 'Selecione um cliente.',
             'titulo.required' => 'O título é obrigatório.',
+            'titulo.max' => 'O título não pode ter mais de 255 caracteres.',
             'desconto.max' => 'O desconto não pode ser maior que 100%.',
             'desconto.min' => 'O desconto não pode ser negativo.',
             'desconto.numeric' => 'O desconto deve ser um número.',
             'itens.required' => 'Adicione pelo menos um item.',
             'itens.min' => 'Adicione pelo menos um item.',
             'itens.*.descricao.required' => 'A descrição do item é obrigatória.',
+            'itens.*.descricao.max' => 'A descrição do item não pode ter mais de 255 caracteres.',
             'itens.*.quantidade.required' => 'A quantidade é obrigatória.',
             'itens.*.quantidade.min' => 'A quantidade deve ser no mínimo 1.',
             'itens.*.valor_unitario.required' => 'O valor unitário é obrigatório.',
