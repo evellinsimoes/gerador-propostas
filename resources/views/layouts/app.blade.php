@@ -40,7 +40,7 @@
             line-height: 1.6;
         }
         .container {
-            max-width: 820px;
+            max-width: 880px;
             margin: 0 auto;
             background: var(--card);
             border-top: 4px solid var(--titulo);
@@ -144,7 +144,8 @@
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23a0a8b3' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
         }
         input:focus, select:focus, textarea:focus { outline: 2px solid var(--titulo); outline-offset: 2px; border-color: var(--titulo); }
-        table { width: 100%; border-collapse: collapse; margin: 24px 0 12px; }
+        .tabela-wrapper { margin: 24px 0 12px; overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; }
         th {
             background: var(--menu-fundo);
             color: var(--label);
@@ -156,7 +157,8 @@
             border-bottom: 2px solid var(--titulo);
         }
         td { padding: 13px 12px; border-bottom: 1px solid var(--borda); font-size: 14px; }
-        td:last-child { white-space: nowrap; padding-right: 16px; }
+        td:last-child { white-space: nowrap; padding-right: 20px; }
+        th:last-child { padding-right: 20px; }
         tr:hover td { background: var(--hover-linha); }
         .link-excluir {
             background: none; border: none; color: var(--perigo);
@@ -215,8 +217,7 @@
             .container { padding: 0 16px 20px; overflow-x: hidden; }
             h1 { padding: 20px 16px 16px; margin: 0 -16px 16px; font-size: 20px; }
             .menu { margin: 0 -16px 16px; padding: 12px 16px; }
-            table { display: block; overflow-x: auto; white-space: nowrap; }
-            td:last-child { white-space: nowrap !important; }
+            table { white-space: nowrap; }
             .item { flex-wrap: wrap; }
             .item input { flex: 1 1 100%; }
         }
